@@ -32,9 +32,9 @@ export default class ICalendar extends CalendarBase {
    */
   protected setInitialParams = (): void => {
     this
-      .setMeta('UID', ics.getUid())
-      .setMeta('DTSTAMP', time.getTimeCreated())
       .setMeta('PRODID', ics.getProdId())
+      .addProperty('UID', ics.getUid())
+      .addProperty('DTSTAMP', time.getTimeFullCreated())
       .addProperty('CLASS', 'PUBLIC')
       .addProperty('DESCRIPTION', ics.formatText(this.description))
       .addProperty('LOCATION', ics.formatText(this.location))
@@ -227,9 +227,9 @@ export default class ICalendar extends CalendarBase {
     return [
       'BEGIN:VCALENDAR',
       'VERSION:2.0',
+      ...meta,
       ...vEvents,
-      'END:VCALENDAR',
-      ...meta
-    ].join('\n')
+      'END:VCALENDAR'
+    ].join('\r\n')
   }
 }

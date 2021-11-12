@@ -127,6 +127,15 @@ const getTimeCreated = (): string => {
 }
 
 /**
+ * Returns the current timestamp.
+ *
+ * @returns {string}
+ */
+ const getTimeFullCreated = (): string => {
+  return formatDate(new Date(), FORMAT.FULL)
+}
+
+/**
  * Increments dates by the given number of days.
  * This will account for edge cases, such as leap years.
  *
@@ -151,5 +160,6 @@ export default {
   formatDate,
   formatDateNoUtc,
   getTimeCreated,
+  getTimeFullCreated,
   incrementDate
 }

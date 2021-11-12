@@ -89,7 +89,7 @@ describe('time utils', () => {
       const timestamp = '2019-03-23T17:00:00-03:00'
       const actualDateOutput = time.formatDateNoUtc(new Date(timestamp), FORMAT.DATE)
 
-      expect(actualDateOutput).toBe('20190323')
+      expect(actualDateOutput).toBe('20190324')
     })
   })
 

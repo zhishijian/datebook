@@ -1,6 +1,6 @@
 {
-  "name": "datebook",
-  "version": "7.0.7",
+  "name": "@hollen/datebook",
+  "version": "1.0.0",
   "description": "Generates URLs and downloads ICS files for adding events to popular calendar apps.",
   "keywords": [
     "icalendar",
@@ -13,12 +13,12 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/jshor/datebook"
+    "url": "https://github.com/zhishijian/datebook"
   },
   "author": "Josh Shor <jpshor@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/jshor/datebook/issues"
+    "url": "https://github.com/zhishijian/datebook/issues"
   },
   "homepage": "https://datebook.dev",
   "scripts": {

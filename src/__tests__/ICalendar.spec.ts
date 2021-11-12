@@ -35,7 +35,7 @@ describe('ICalendar', () => {
     expect(obj.render()).toContain([
       `DTSTART;VALUE=DATE:${time.formatDateNoUtc(baseOpts.start, FORMAT.DATE)}`,
       `DTEND;VALUE=DATE:${time.formatDateNoUtc(time.incrementDate(baseOpts.start, 1), FORMAT.DATE)}`
-    ].join('\n'))
+    ].join('\r\n'))
   })
 
   describe('addAlarm()', () => {
@@ -70,7 +70,7 @@ describe('ICalendar', () => {
         'ATTACH;FMTTYPE=application/binary:ftp://host.com/novo-procs/felizano.exe',
         'TRIGGER;VALUE=DATE-TIME:19980101T050000Z',
         'END:VALARM'
-      ].join('\n'))
+      ].join('\r\n'))
     })
 
     it('should add a `DISPLAY` alarm with an email CID set as the attachment', () => {
@@ -90,7 +90,7 @@ describe('ICalendar', () => {
         'ATTACH:CID:john.doe@example.com',
         'TRIGGER;VALUE=DATE-TIME:19980101T050000Z',
         'END:VALARM'
-      ].join('\n'))
+      ].join('\r\n'))
     })
 
     it('should add a three-minute-long `DISPLAY` alarm with the given description and summary', () => {
@@ -115,7 +115,7 @@ describe('ICalendar', () => {
         'DURATION:PT3M',
         'TRIGGER;VALUE=DATE-TIME:19980101T050000Z',
         'END:VALARM'
-      ].join('\n'))
+      ].join('\r\n'))
     })
 
     it('should trigger an alarm five minutes before the event', () => {
@@ -133,7 +133,7 @@ describe('ICalendar', () => {
         'ACTION:DISPLAY',
         'TRIGGER:-PT5M',
         'END:VALARM'
-      ].join('\n'))
+      ].join('\r\n'))
     })
 
     it('should trigger an alarm five minutes before the event', () => {
@@ -151,7 +151,7 @@ describe('ICalendar', () => {
         'ACTION:DISPLAY',
         'TRIGGER:-PT5M',
         'END:VALARM'
-      ].join('\n'))
+      ].join('\r\n'))
     })
   })
 
@@ -250,10 +250,14 @@ describe('ICalendar', () => {
     it('should render ICS file content string for a single event', () => {
       const obj = new ICalendar(baseOpts)
       const rendered = obj.render()
+      console.log(rendered)
       const expected = [
         'BEGIN:VCALENDAR',
         'VERSION:2.0',
+        'PRODID:foobar',
         'BEGIN:VEVENT',
+        `UID:${mockUuid}`,
+        `DTSTAMP:${time.getTimeFullCreated()}`,
         'CLASS:PUBLIC',
         `DESCRIPTION:${baseOpts.description}`,
         `LOCATION:${baseOpts.location}`,
@@ -262,11 +266,8 @@ describe('ICalendar', () => {
         `DTSTART:${time.formatDate(baseOpts.start, FORMAT.FULL)}`,
         `DTEND:${time.formatDate(baseOpts.end, FORMAT.FULL)}`,
         'END:VEVENT',
-        'END:VCALENDAR',
-        `UID:${mockUuid}`,
-        `DTSTAMP:${time.getTimeCreated()}`,
-        'PRODID:foobar'
-      ].join('\n')
+        'END:VCALENDAR'
+      ].join('\r\n')
 
       expect(rendered).toBe(expected)
     })
@@ -290,9 +291,12 @@ describe('ICalendar', () => {
       const expected = [
         'BEGIN:VCALENDAR',
         'VERSION:2.0',
+        'PRODID:foobar',
 
         // second event
         'BEGIN:VEVENT',
+        `UID:${mockUuid}`,
+        `DTSTAMP:${time.getTimeFullCreated()}`,
         'CLASS:PUBLIC',
         `DESCRIPTION:${secondEventOpts.description}`,
         `LOCATION:${secondEventOpts.location}`,
@@ -304,6 +308,8 @@ describe('ICalendar', () => {
 
         // base event
         'BEGIN:VEVENT',
+        `UID:${mockUuid}`,
+        `DTSTAMP:${time.getTimeFullCreated()}`,
         'CLASS:PUBLIC',
         `DESCRIPTION:${baseOpts.description}`,
         `LOCATION:${baseOpts.location}`,
@@ -313,11 +319,8 @@ describe('ICalendar', () => {
         `DTEND:${time.formatDate(baseOpts.end, FORMAT.FULL)}`,
         'END:VEVENT',
 
-        'END:VCALENDAR',
-        `UID:${mockUuid}`,
-        `DTSTAMP:${time.getTimeCreated()}`,
-        'PRODID:foobar'
-      ].join('\n')
+        'END:VCALENDAR'
+      ].join('\r\n')
 
       expect(rendered).toBe(expected)
     })
